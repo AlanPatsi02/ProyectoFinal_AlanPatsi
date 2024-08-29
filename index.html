@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Simulador de Gastos</title>
+
+</head>
+<body>
+    <h1>Simulador de Gastos Mensuales</h1>
+    
+    <form id="gastosForm">
+        <label for="sueldo">Sueldo mensual:</label>
+        <input type="number" id="sueldo" name="sueldo" required><br>
+
+        <label for="alquiler">Alquiler:</label>
+        <input type="number" id="alquiler" name="alquiler" required><br>
+
+        <label for="comida">Gastos en comida:</label>
+        <input type="number" id="comida" name="comida" required><br>
+
+        <label for="transporte">Gastos en transporte:</label>
+        <input type="number" id="transporte" name="transporte" required><br>
+
+        <button type="submit">Calcular gastos</button>
+        <button type="button" id="borrarDatos">Limpiar</button>
+    </form>
+
+    <div id="error" class="error"></div>
+    <h2>Resultados:</h2>
+    <div id="resultados"></div>
+    <footer>
+        <p>&copy; 2024 Alan Patsi. Todos los derechos reservados.</p>
+    </footer>    
+    <script src="script.js"></script>
+</body>
+</html>
