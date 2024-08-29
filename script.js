@@ -3,55 +3,59 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultadosDiv = document.getElementById("resultados");
     const errorDiv = document.getElementById("error");
     const borrarBtn = document.getElementById("borrarDatos");
-
-    form.addEventListener("submit", (event) => {
-        event.preventDefault();
-
-        errorDiv.textContent = "";
-
-        const sueldo = parseFloat(document.getElementById("sueldo").value) ?? 0;
-        const alquiler = parseFloat(document.getElementById("alquiler").value) ?? 0;
-        const comida = parseFloat(document.getElementById("comida").value) ?? 0;
-        const transporte = parseFloat(document.getElementById("transporte").value) ?? 0;
-
-        if (sueldo <= 0 || isNaN(sueldo)) {
-            mostrarError("Por favor, ingresa un sueldo válido.");
-            return;
+    let gastos = [];
+    async function cargarDatos() {
+        try {
+            const response = await fetch('data.json');
+            if (!response.ok) {
+                throw new Error('Error al cargar los datos');
+            }
+            const data = await response.json();
+            gastos = data.categorias;
+        } catch (error) {
+            console.error('Error:', error);
+            mostrarError('No se pudieron cargar los datos.');
         }
-
-        if (alquiler < 0 || comida < 0 || transporte < 0) {
-            mostrarError("Los gastos no pueden ser negativos.");
-            return;
-        }
-
-        const totalGastos = alquiler + comida + transporte;
-        const saldoRestante = sueldo - totalGastos;
-
-        guardarEnLocalStorage({ sueldo, alquiler, comida, transporte });
-
-        mostrarResultados(totalGastos, saldoRestante);
-    });
-
-    borrarBtn.addEventListener("click", () => {
-        
-        form.reset();
-        
-        resultadosDiv.innerHTML = "";
-        errorDiv.textContent = "";
-    });
-
+    }
+    cargarDatos();
+    function mostrarError(mensaje) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: mensaje,
+        });
+    }
     function mostrarResultados(totalGastos, saldoRestante) {
         resultadosDiv.innerHTML = `
             <p>Total de gastos: $${totalGastos}</p>
             <p>Saldo restante: $${saldoRestante}</p>
         `;
     }
-
-    function mostrarError(mensaje) {
-        errorDiv.textContent = mensaje;
-    }
-
-    function guardarEnLocalStorage(datos) {
-        localStorage.setItem("simuladorGastos", JSON.stringify(datos));
-    }
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        let sueldo = parseFloat(document.getElementById("sueldo").value);
+        if (isNaN(sueldo) || sueldo <= 0) {
+            mostrarError("Por favor, ingresa un sueldo válido.");
+            return;
+        }
+        let totalGastos = 0;
+        gastos.forEach(gasto => {
+            let monto = parseFloat(document.getElementById(gasto.descripcion).value);
+            if (isNaN(monto) || monto < 0) {
+                mostrarError(`Por favor, ingresa un monto válido para ${gasto.descripcion}.`);
+                return;
+            }
+            gasto.monto = monto;
+            totalGastos += monto;
+        });
+        let saldoRestante = sueldo - totalGastos;
+        mostrarResultados(totalGastos, saldoRestante);
+        localStorage.setItem('gastos', JSON.stringify(gastos));
+        localStorage.setItem('sueldo', sueldo);
+    });
+    borrarBtn.addEventListener("click", () => {
+        form.reset();
+        resultadosDiv.innerHTML = "";
+        errorDiv.textContent = "";
+    });
 });
