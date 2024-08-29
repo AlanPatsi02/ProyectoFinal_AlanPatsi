@@ -1,0 +1,7 @@
+{
+    "categorias": [
+        { "descripcion": "alquiler", "monto": 0 },
+        { "descripcion": "comida", "monto": 0 },
+        { "descripcion": "transporte", "monto": 0 }
+    ]
+}
