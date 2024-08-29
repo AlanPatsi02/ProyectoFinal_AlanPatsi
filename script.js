@@ -26,10 +26,18 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
     function mostrarResultados(totalGastos, saldoRestante) {
-        resultadosDiv.innerHTML = `
-            <p>Total de gastos: $${totalGastos}</p>
-            <p>Saldo restante: $${saldoRestante}</p>
-        `;
+        Swal.fire({
+            title: 'Realizando los cálculos...',
+            timer: 2000,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+        }).then(() => {
+            resultadosDiv.innerHTML = `
+                <p>Total de gastos: $${totalGastos}</p>
+                <p>Saldo restante: $${saldoRestante}</p>
+            `;
+        });
     }
     form.addEventListener("submit", (event) => {
         event.preventDefault();
