@@ -1,95 +1,94 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.container {
-    background-color: #fff;
+main {
+    flex: 1;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
 }
 
-h1, h2 {
-    color: #2c3e50;
+h1 {
     text-align: center;
-    margin-bottom: 20px;
-}
-
-p {
-    margin: 10px 0;
+    margin-top: 20px;
+    color: #333;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 label {
-    margin-bottom: 5px;
+    display: block;
+    margin-bottom: 8px;
     font-weight: bold;
 }
 
-input[type="text"], input[type="number"] {
+input[type="number"] {
+    width: calc(100% - 22px);
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-input[type="text"]:focus, input[type="number"]:focus {
-    border-color: #3498db;
-    outline: none;
+    box-sizing: border-box;
 }
 
 button {
-    background-color: #3498db;
-    color: #fff;
+    padding: 10px 15px;
     border: none;
-    padding: 10px;
     border-radius: 4px;
+    color: #fff;
+    background-color: #007bff;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 16px;
+    margin-right: 10px;
 }
 
 button:hover {
-    background-color: #2980b9;
+    background-color: #0056b3;
 }
 
-#borrarDatos {
-    background-color: #e74c3c;
-    margin-top: 10px;
+button#borrarDatos {
+    background-color: #dc3545;
 }
 
-#borrarDatos:hover {
-    background-color: #c0392b;
-}
-
-#resultados {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #ecf0f1;
-    border-radius: 4px;
+button#borrarDatos:hover {
+    background-color: #c82333;
 }
 
 #error {
-    color: #e74c3c;
+    color: #dc3545;
     font-weight: bold;
-    margin-top: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: center;
 }
 
-@media (max-width: 480px) {
-    .container {
-        padding: 15px;
-        width: 90%;
-    }
+#resultados {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #333;
+    color: #fff;
+    position: relative;
+    width: 100%;
 }
